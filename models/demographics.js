@@ -2,7 +2,6 @@ const mongoose = require("mongoose")
 const PointSchema = require("./schemas/point.schema")
 
 const DemographicsSchema = new mongoose.Schema({
-
   stateCode: Number,
   countryCode: Number,
   censusTractCode: Number,
@@ -13,6 +12,7 @@ const DemographicsSchema = new mongoose.Schema({
   totalPopulation: Number,
   CENTLAT: Number,
   CENTLON: Number,
+
   location: PointSchema
 })
 

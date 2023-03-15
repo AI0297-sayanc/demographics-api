@@ -17,6 +17,10 @@ router.post("/signup", signup.post) // UNAUTHENTICATED
 router.post("/forgotpassword", forgotpassword.startWorkflow) // UNAUTHENTICATED; AJAX
 router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; AJAX
 
+// routes for regions
+router.get("/getRegion", regions.get)
+router.get("/fetchDemoinRad", demographics.get)
+
 router.all("*", checkJwt) // use this auth middleware for ALL subsequent routes
 
 router.get("/users", users.find)
@@ -24,9 +28,5 @@ router.get("/user/:id", users.get)
 router.post("/user", users.post)
 router.put("/user/:id", users.put)
 router.delete("/user/:id", users.delete)
-
-// routes for regions
-router.get("/getRegion", regions.get)
-router.get("/fetchDemoinRad", demographics.get)
 
 module.exports = router

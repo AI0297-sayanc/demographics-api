@@ -17,17 +17,17 @@ module.exports = {
               coordinates: [parseFloat(longitude), parseFloat(latitude)]
             },
             key: "location",
-            maxDistance: parseFloat(radius) * 1609,
+            maxDistance: parseFloat(radius),
             distanceField: "dist.calculated",
             spherical: true,
             query: {}
           },
         },
       ])
-      res.status(200).send({ success: true, msg: "Demo details", data: demoData })
+      return res.status(200).send({ success: true, msg: "Demo details", data: demoData })
     } catch (error) {
     // console.error(error)
-      res.status(500).json({ message: "Server error" })
+      return res.status(500).json({ message: "Server error" })
     }
   }
 }
