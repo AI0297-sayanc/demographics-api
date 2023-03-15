@@ -1,5 +1,3 @@
-const mongoose = require("mongoose")
-
 const Regions = require("../models/regions")
 
 /* 1. Given a point which region it belongs to */
