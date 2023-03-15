@@ -9,6 +9,8 @@ const login = require("./auth")
 const signup = require("./auth/signup")
 const forgotpassword = require("./auth/password")
 const users = require("./users")
+const regions = require("../regions")
+const demographics = require("../demographics")
 
 router.post("/login", login.post) // UNAUTHENTICATED
 router.post("/signup", signup.post) // UNAUTHENTICATED
@@ -22,5 +24,9 @@ router.get("/user/:id", users.get)
 router.post("/user", users.post)
 router.put("/user/:id", users.put)
 router.delete("/user/:id", users.delete)
+
+// routes for regions
+router.get("/getRegion", regions.get)
+router.get("/fetchDemoinRad", demographics.get)
 
 module.exports = router
