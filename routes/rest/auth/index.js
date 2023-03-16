@@ -4,7 +4,7 @@ const User = require("../../../models/user")
 
 module.exports = {
   /**
-   *
+   * @apiIgnore
    * @api {post} /login User login
    * @apiName userLogin
    * @apiGroup Auth

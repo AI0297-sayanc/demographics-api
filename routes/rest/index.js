@@ -11,6 +11,7 @@ const forgotpassword = require("./auth/password")
 const users = require("./users")
 const regions = require("../regions")
 const demographics = require("../demographics")
+const demographics2 = require("../demographics2")
 
 router.post("/login", login.post) // UNAUTHENTICATED
 router.post("/signup", signup.post) // UNAUTHENTICATED
@@ -18,8 +19,13 @@ router.post("/forgotpassword", forgotpassword.startWorkflow) // UNAUTHENTICATED;
 router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; AJAX
 
 // routes for regions
-router.get("/getRegion", regions.get)
-router.get("/fetchDemoinRad", demographics.get)
+router.get("/getRegion/:longitude/:latitude", regions.get)
+
+// routes all demographics in that radius
+router.get("/fetchDemoinRad/:longitude/:latitude/:radius", demographics.get)
+
+// given a region fetch all demographics in that regions
+router.get("/allDemoinRegion/:longitude/:latitude", demographics2.get)
 
 router.all("*", checkJwt) // use this auth middleware for ALL subsequent routes
 

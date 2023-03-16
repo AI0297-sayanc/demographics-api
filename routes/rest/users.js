@@ -2,7 +2,7 @@ const User = require("../../models/user")
 
 module.exports = {
   /**
-   *
+   * @apiIgnore
    * @api {get} /users List all Users
    * @apiName userList
    * @apiGroup User
@@ -40,7 +40,7 @@ module.exports = {
   },
 
   /**
-   *
+   *@apiIgnore
    * @api {get} /user/:id Get single User details by ID
    * @apiName userDetails
    * @apiGroup User
@@ -79,7 +79,7 @@ module.exports = {
   },
 
   /**
-   *
+   *@apiIgnore
    * @api {post} /user Add new User
    * @apiName userManualInsert
    * @apiGroup User
@@ -155,7 +155,7 @@ module.exports = {
   },
 
   /**
-   *
+   *@apiIgnore
    * @api {put} /user/:id Edit User details
    * @apiName userUpdate
    * @apiGroup User
@@ -220,7 +220,7 @@ module.exports = {
   },
 
   /**
-   *
+   *@apiIgnore
    * @api {delete} /user/:id Delete a User
    * @apiName userDelete
    * @apiGroup User

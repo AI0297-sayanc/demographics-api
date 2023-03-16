@@ -2,7 +2,7 @@ const User = require("../../../models/user")
 
 module.exports = {
   /**
-   *
+   * @apiIgnore
    * @api {post} /signup User registration
    * @apiName userRegistration
    * @apiGroup Auth
