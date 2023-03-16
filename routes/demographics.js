@@ -53,7 +53,7 @@ module.exports = {
           location: {
             $nearSphere: {
               $geometry: { type: "Point", coordinates: [parseFloat(long), parseFloat(lat)] },
-              $maxDistance: parseFloat(rad) * 1609,
+              $maxDistance: parseFloat(rad),
               // spherical: true,
               // query: {}
             }
