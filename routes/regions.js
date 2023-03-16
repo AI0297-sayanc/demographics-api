@@ -2,16 +2,18 @@ const Regions = require("../models/regions")
 
 /**
  *
- * @api { get } /getRegion/longitude/latitude Request point which regions it belong to
- * @apiName List of Points in Regions
- * @apiGroup Regions
+ * @api { get } /getRegion Request point in which region it belongs to
+ * @apiName  Point to Region
+ * @apiGroup Region
  * @apiVersion  1.0.0
 
- * @apiParam {Number}  longitude Longitude of the given point of region
- * @apiParam {Number}  latitude  Lattitude of the given point of region
+ * @apiQuery {Number}  long [Longitude] of the given point of region
+ * @apiQuery {Number}  lat  [Lattitude] of the given point of region
  * @apiSuccessExample {json} Success-Response:200
  *{
-        "results": [
+    "success": true,
+    "msg": "Point to Region",
+    "data": [
         {
             "_id": "640716dc72f32bc2328769ec",
             "AFFGEOID": "0400000US40",
@@ -36,33 +38,23 @@ const Regions = require("../models/regions")
                             -103.002188,
                             36.602716
                         ],
-                        [
-                            -103.002252,
-                            36.61718
-                        ],
-                        [
-                            -103.002518,
-                            36.675186
-                        ],
-                        [
-                            -103.002198,
-                            36.719427
-                        ].......
-                          ],
-                "_id": "6411e0b3d1437dd1e23bd74b"
+                        ....
+                    ]
+                ],
+                "_id": "64133f96507b09397e3c0353"
             },
             "id": "640716dc72f32bc2328769f3"
         }
-
- }
+    ]
+}
 */
 module.exports = {
   async get(req, res) {
-    const { longitude, latitude } = req.params
+    const { long, lat } = req.query
     try {
       const point = {
         type: "Point",
-        coordinates: [parseFloat(longitude), parseFloat(latitude)],
+        coordinates: [parseFloat(long), parseFloat(lat)],
       }
       const regionData = await Regions.find({
         boundaries: {
@@ -71,7 +63,7 @@ module.exports = {
           },
         },
       }).exec()
-      return res.status(200).json({ results: regionData })
+      return res.status(200).json({ success: true, msg: "Point to Region", data: regionData })
     } catch (error) {
     // console.error(error)
       return res.status(500).json({ message: "Server error" })
