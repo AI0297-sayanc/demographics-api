@@ -3,7 +3,7 @@ const Regions = require("../models/regions")
 /**
  *
  * @api { get } /search-region Request for searching name in a region
- * @apiName List of all  search name in that region
+ * @apiName List of all details in that region
  * @apiGroup  Search By Name in Region
  * @apiVersion  1.0.0
 
@@ -51,13 +51,14 @@ const Regions = require("../models/regions")
             [ -88.502966, 30.215235 ],
             [ -88.491759, 30.209014 ],
             [ -88.468668, 30.203731 ]...
+          ]
 }
  */
 module.exports = {
   async get(req, res) {
     const { name } = req.query
     try {
-      const searcName = await Regions.aggregate([
+      const searchName = await Regions.aggregate([
         {
           $search: {
             index: "custom",
@@ -68,7 +69,7 @@ module.exports = {
           }
         }
       ])
-      return res.status(200).json({ success: true, msg: "Name of Regions", data: searcName })
+      return res.status(200).json({ success: true, msg: "Name of Regions", data: searchName })
     } catch (error) {
       // console.error(error)
       return res.status(500).json({ message: "Server error" })
