@@ -76,9 +76,9 @@ module.exports = {
           },
         },
 
-      })
+      }).exec()
       const data = await Demographics
-        .find({ location: { $geoWithin: { $geometry: myregion.boundaries } } })
+        .find({ location: { $geoWithin: { $geometry: myregion.boundaries } } }).exec()
       return res.status(200).send({ success: true, msg: "all demographics in a region", data })
     } catch (error) {
       /* console.log("error ==> ", error) */

@@ -11,7 +11,8 @@ const forgotpassword = require("./auth/password")
 const users = require("./users")
 const regions = require("../regions")
 const demographics = require("../demographics")
-const regionDemographics = require("../regionDemographics")
+const regiondemographics = require("../regiondemographics")
+const searchregion = require("../searchregion")
 
 router.post("/login", login.post) // UNAUTHENTICATED
 router.post("/signup", signup.post) // UNAUTHENTICATED
@@ -25,7 +26,10 @@ router.get("/getRegion", regions.get)
 router.get("/radius-demographics", demographics.get)
 
 // given a region fetch all demographics in that regions
-router.get("/region-demographics", regionDemographics.get)
+router.get("/region-demographics", regiondemographics.get)
+
+// Given a string to search, to run full text searches on designated fields (e.g display name) and get all matching regions as a list
+router.get("/region-name", searchregion.get)
 
 router.all("*", checkJwt) // use this auth middleware for ALL subsequent routes
 

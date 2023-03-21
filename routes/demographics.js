@@ -59,7 +59,7 @@ module.exports = {
             }
           }
         },
-      )
+      ).exec()
       return res.status(200).send({ success: true, msg: "Demographies in radius", data: demoData })
     } catch (error) {
       return res.status(500).json({ message: "Server error" })
