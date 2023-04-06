@@ -1,15 +1,16 @@
 const mongoose = require("mongoose")
+// const { Schema } = mongoose
 
-const PolygonSchema = new mongoose.Schema({
+const polygonSchema = new mongoose.Schema({
   type: {
     type: String,
     enum: ["Polygon"],
     required: true
   },
   coordinates: {
-    type: [[[Number]]], // Array of arrays of arrays of numbers
+    type: [[[Number]]],
     required: true
   }
 })
 
-module.exports = PolygonSchema
+module.exports = polygonSchema

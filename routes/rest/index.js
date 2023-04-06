@@ -1,6 +1,9 @@
 const express = require("express")
 const router = express.Router()
 
+const regioncontroller = require("../regioncontroller")
+const censuscontroller = require("../censuscontroller")
+
 const { expressjwt } = require("express-jwt")
 
 const checkJwt = expressjwt({ secret: process.env.SECRET, algorithms: ["HS256"] }) // the JWT auth check middleware
@@ -9,27 +12,16 @@ const login = require("./auth")
 const signup = require("./auth/signup")
 const forgotpassword = require("./auth/password")
 const users = require("./users")
-const regions = require("../regions")
-const demographics = require("../demographics")
-const regiondemographics = require("../regiondemographics")
-const searchregion = require("../searchregion")
 
 router.post("/login", login.post) // UNAUTHENTICATED
 router.post("/signup", signup.post) // UNAUTHENTICATED
 router.post("/forgotpassword", forgotpassword.startWorkflow) // UNAUTHENTICATED; AJAX
 router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; AJAX
 
-// given a point in which region it belong to
-router.get("/getRegion", regions.get)
-
-// fetch all demographics in a radius
-router.get("/radius-demographics", demographics.get)
-
-// given a region fetch all demographics in that regions
-router.get("/region-demographics", regiondemographics.get)
-
-// Given a string to search, to run full text searches on designated fields (e.g display name) and get all matching regions as a list
-router.get("/region-name", searchregion.get)
+// route for demoregion
+router.post("/testregion", regioncontroller.post)
+// route for census
+router.post("/testcensus", censuscontroller.post)
 
 router.all("*", checkJwt) // use this auth middleware for ALL subsequent routes
 

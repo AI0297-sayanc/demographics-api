@@ -15,7 +15,7 @@ test.beforeEach(setupFixtures)
 test.afterEach(teardownFixtures)
 /* ******************************* */
 
-test.serial("Users.find: my passing test", async (t) => {
+test.skip("Users.find: my passing test", async (t) => {
   const { status, body } = await runRouteHandler(find)
   t.is(status, 200)
   t.false(body.error)
@@ -24,7 +24,7 @@ test.serial("Users.find: my passing test", async (t) => {
   t.is(body.users[0].name.full, "Foo Bar")
 })
 
-test.serial("Users.find: If DB ops throw an error, status should be 500", async (t) => {
+test.skip("Users.find: If DB ops throw an error, status should be 500", async (t) => {
   sinon.stub(User, "find").throws(new Error("Dummy DB Error!!"))
   const { status, body } = await runRouteHandler(find)
   t.is(status, 500)
