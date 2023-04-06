@@ -1,10 +1,8 @@
 const express = require("express")
 const router = express.Router()
-
+const { expressjwt } = require("express-jwt")
 const regioncontroller = require("../regioncontroller")
 const censuscontroller = require("../censuscontroller")
-
-const { expressjwt } = require("express-jwt")
 
 const checkJwt = expressjwt({ secret: process.env.SECRET, algorithms: ["HS256"] }) // the JWT auth check middleware
 
