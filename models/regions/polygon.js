@@ -1,13 +1,15 @@
 const mongoose = require("mongoose")
-const polygonSchema = require("../schemas/polygon.schema")
+const GeoPolygonSchema = require("../schemas/polygon.schema")
 const Demoregion = require("./index")
 
 const PolygonRegionSchema = new mongoose.Schema({
-  geometry: polygonSchema
+  geometry: GeoPolygonSchema
 })
 
 PolygonRegionSchema.set("timestamps", true)
 PolygonRegionSchema.set("toJSON", { virtuals: true })
-PolygonRegionSchema.set("toObject", { virtuals: true })
+GeoPolygonSchema.set("toObject", { virtuals: true })
+
+PolygonRegionSchema.index({ geometry: "2dsphere" })
 
 module.exports = Demoregion.discriminator("PolygonRegion", PolygonRegionSchema, "Polygon")

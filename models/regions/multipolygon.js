@@ -1,13 +1,15 @@
 const mongoose = require("mongoose")
-const multiPolygonSchema = require("../schemas/multipolygon.schema")
+const GeoMultiPolygonSchema = require("../schemas/multipolygon.schema")
 const Demoregion = require("./index")
 
-const MultiPolygonSchema = new mongoose.Schema({
-  geometry: multiPolygonSchema
+const MultiPolygonRegionSchema = new mongoose.Schema({
+  geometry: GeoMultiPolygonSchema
 })
 
-MultiPolygonSchema.set("timestamps", true)
-MultiPolygonSchema.set("toJSON", { virtuals: true })
-MultiPolygonSchema.set("toObject", { virtuals: true })
+MultiPolygonRegionSchema.set("timestamps", true)
+MultiPolygonRegionSchema.set("toJSON", { virtuals: true })
+MultiPolygonRegionSchema.set("toObject", { virtuals: true })
 
-module.exports = Demoregion.discriminator("MultipolygonRegion", MultiPolygonSchema, "Multipolygon")
+MultiPolygonRegionSchema.index({ geometry: "2dsphere" })
+
+module.exports = Demoregion.discriminator("MultiPolygonRegion", MultiPolygonRegionSchema, "Multipolygon")

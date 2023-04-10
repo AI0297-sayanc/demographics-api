@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const DemoregionsSchema = new mongoose.Schema({
+const RegionSchema = new mongoose.Schema({
   geoId: String,
   name: String,
   geographicLevel: {
@@ -12,12 +12,10 @@ const DemoregionsSchema = new mongoose.Schema({
     ref: "Census",
   },
 })
-// Create 2dsphere index for location field
-DemoregionsSchema.index({ location: "2dsphere" })
 
-DemoregionsSchema.set("timestamps", true)
-DemoregionsSchema.set("toJSON", { virtuals: true })
-DemoregionsSchema.set("toObject", { virtuals: true })
-DemoregionsSchema.set("discrimanorKey", "geometry.type")
+RegionSchema.set("timestamps", true)
+RegionSchema.set("toJSON", { virtuals: true })
+RegionSchema.set("toObject", { virtuals: true })
+// RegionSchema.set("discriminatorKey", "geometryType") // redundant
 
-module.exports = mongoose.model("Demoregion", DemoregionsSchema)
+module.exports = mongoose.model("Region", RegionSchema)

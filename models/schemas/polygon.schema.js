@@ -1,17 +1,17 @@
 const mongoose = require("mongoose")
-const Tuple = require("./tuple.class")
-mongoose.Schema.Types.Tuple = Tuple
+const CoordinatePair = require("./coordinate-pair.class")
+mongoose.Schema.Types.CoordinatePair = CoordinatePair
 
-const polygonSchema = new mongoose.Schema({
+const GeoPolygonSchema = new mongoose.Schema({
   type: {
     type: String,
     enum: ["Polygon"],
     required: true
   },
   coordinates: {
-    type: [[Tuple]],
-    required: true,
+    type: [[CoordinatePair]],
+    required: true
   }
 })
 
-module.exports = polygonSchema
+module.exports = GeoPolygonSchema
