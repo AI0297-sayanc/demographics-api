@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-// const { Schema } = mongoose
+const Tuple = require("./tuple.class")
+mongoose.Schema.Types.Tuple = Tuple
 
 const polygonSchema = new mongoose.Schema({
   type: {
@@ -8,8 +9,8 @@ const polygonSchema = new mongoose.Schema({
     required: true
   },
   coordinates: {
-    type: [[[Number]]],
-    required: true
+    type: [[Tuple]],
+    required: true,
   }
 })
 
