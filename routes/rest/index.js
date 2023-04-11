@@ -17,11 +17,13 @@ router.post("/forgotpassword", forgotpassword.startWorkflow) // UNAUTHENTICATED;
 router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; AJAX
 
 // route for demoregion
-router.post("/testregion", regioncontroller.post)
+router.post("/region", regioncontroller.post)
+router.get("/region", regioncontroller.get)
+
 // route for census
 router.post("/testcensus", censuscontroller.post)
 
-router.all("*", checkJwt) // use this auth middleware for ALL subsequent routes
+// router.all("*", checkJwt) // use this auth middleware for ALL subsequent routes
 
 router.get("/users", users.find)
 router.get("/user/:id", users.get)
