@@ -19,6 +19,7 @@ router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; 
 // route for demoregion
 router.post("/region", regioncontroller.post)
 router.get("/region", regioncontroller.get)
+router.get("/getregion", regioncontroller.get)
 
 // route for census
 router.post("/testcensus", censuscontroller.post)

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const GeoPolygonSchema = require("../schemas/polygon.schema")
-const Demoregion = require("./index")
+const Region = require("./index")
 
 const PolygonRegionSchema = new mongoose.Schema({
   geometry: GeoPolygonSchema
@@ -8,7 +8,7 @@ const PolygonRegionSchema = new mongoose.Schema({
 
 PolygonRegionSchema.set("timestamps", true)
 PolygonRegionSchema.set("toJSON", { virtuals: true })
-GeoPolygonSchema.set("toObject", { virtuals: true })
+PolygonRegionSchema.set("toObject", { virtuals: true })
 
 // create indexing(2d)for geometry field
 PolygonRegionSchema.index({ geometry: "2dsphere" })
@@ -29,4 +29,4 @@ PolygonRegionSchema.post("save", function (error, doc, next) {
   return next(error)
 })
 
-module.exports = Demoregion.discriminator("PolygonRegion", PolygonRegionSchema, "Polygon")
+module.exports = Region.discriminator("PolygonRegion", PolygonRegionSchema, "Polygon")

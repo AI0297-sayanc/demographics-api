@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const GeoPointSchema = require("../schemas/point.schema")
-const Demoregion = require("./index")
+const Region = require("./index")
 
 const PointRegionSchema = new mongoose.Schema({
   geometry: GeoPointSchema
@@ -27,4 +27,4 @@ PointRegionSchema.post("save", function (error, doc, next) {
   return next(error)
 })
 
-module.exports = Demoregion.discriminator("PointRegion", PointRegionSchema, "Point")
+module.exports = Region.discriminator("PointRegion", PointRegionSchema, "Point")

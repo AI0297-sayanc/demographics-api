@@ -1,5 +1,3 @@
-// const Regions = require("../models/demoregions")
-// const Demoregion = require("../models/regions/index")
 const Region = require("../models/regions")
 const MultipolygonRegion = require("../models/regions/multipolygon")
 const PolygonRegion = require("../models/regions/polygon")
@@ -38,13 +36,6 @@ module.exports = {
           geometry
         })
       }
-      // const posData = await Demoregion.create({
-      //   geoId,
-      //   name,
-      //   geographicLevel,
-      //   geometry
-      // }).exec()
-      // posData = posData.toObject()
       return res.status(200).json({
         success: true,
         msg: "Name of Regions",
@@ -55,18 +46,24 @@ module.exports = {
       return res.status(500).json({ message: error.message })
     }
   },
-  // get region by id...........
-  async  get(req, res) {
-    // const { id } = req.params
-    // console.log(id)
+  async get(req, res) {
+    const { long, lat } = req.query
     try {
-      // const region = await Region.findOne({ _id: id }).exec()
-      // console.log(region)
-      const data = await Region.find({}).exec()
-      return res.status(200).json({ success: true, msg: "All Region data", data })
+      const point = {
+        type: "Point",
+        coordinates: [parseFloat(long), parseFloat(lat)],
+      }
+      const regionData = await Region.find({
+        geometry: {
+          $geoIntersects: {
+            $geometry: point
+          },
+        },
+      }).exec()
+      return res.status(200).json({ success: true, msg: "Point to Region", data: regionData })
     } catch (error) {
-      // console.log("error ==> ", error)
-      return res.status(500).json({ message: "server error" })
+      // console.error(error)
+      return res.status(500).json({ message: "Server error" })
     }
   }
 }

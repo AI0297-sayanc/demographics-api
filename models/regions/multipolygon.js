@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const GeoMultiPolygonSchema = require("../schemas/multipolygon.schema")
-const Demoregion = require("./index")
+const Region = require("./index")
 
 const MultiPolygonRegionSchema = new mongoose.Schema({
   geometry: GeoMultiPolygonSchema
@@ -29,4 +29,4 @@ MultiPolygonRegionSchema.post("save", function (error, doc, next) {
   return next(error)
 })
 
-module.exports = Demoregion.discriminator("MultiPolygonRegion", MultiPolygonRegionSchema, "Multipolygon")
+module.exports = Region.discriminator("MultiPolygonRegion", MultiPolygonRegionSchema, "Multipolygon")
