@@ -1,9 +1,11 @@
 const mongoose = require("mongoose")
 const GeoPolygonSchema = require("../schemas/polygon.schema")
 const Region = require("./index")
+const GeoPointSchema = require("../schemas/point.schema")
 
 const PolygonRegionSchema = new mongoose.Schema({
-  geometry: GeoPolygonSchema
+  geometry: GeoPolygonSchema,
+  centroid: GeoPointSchema
 })
 
 PolygonRegionSchema.set("timestamps", true)
@@ -12,6 +14,7 @@ PolygonRegionSchema.set("toObject", { virtuals: true })
 
 // create indexing(2d)for geometry field
 PolygonRegionSchema.index({ geometry: "2dsphere" })
+PolygonRegionSchema.index({ centroid: "2dsphere" })
 
 // eslint-disable-next-line prefer-arrow-callback
 PolygonRegionSchema.post("validate", function (error, doc, next) {

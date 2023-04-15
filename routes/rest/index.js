@@ -16,10 +16,10 @@ router.post("/signup", signup.post) // UNAUTHENTICATED
 router.post("/forgotpassword", forgotpassword.startWorkflow) // UNAUTHENTICATED; AJAX
 router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; AJAX
 
-// route for demoregion
+// route for region
 router.post("/region", regioncontroller.post)
 router.get("/region", regioncontroller.get)
-router.get("/getregion", regioncontroller.get)
+router.get("/region/:id", regioncontroller.get)
 
 // route for census
 router.post("/testcensus", censuscontroller.post)

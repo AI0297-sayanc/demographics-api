@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const CoordinatePair = require("./coordinate-pair.class")
 mongoose.Schema.Types.CoordinatePair = CoordinatePair
 
-const GeoPolygonSchema = new mongoose.Schema({
+const GeoPointSchema = new mongoose.Schema({
   type: {
     type: String,
     enum: ["Point"],
@@ -14,4 +14,4 @@ const GeoPolygonSchema = new mongoose.Schema({
   }
 })
 
-module.exports = GeoPolygonSchema
+module.exports = GeoPointSchema

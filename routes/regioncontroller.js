@@ -7,8 +7,7 @@ module.exports = {
   async post(req, res) {
     const {
       geoId, name,
-      geographicLevel, geometry
-
+      geographicLevel, geometry, centroid
     } = req.body
     try {
       let posData = {}
@@ -17,7 +16,8 @@ module.exports = {
           geoId,
           name,
           geographicLevel,
-          geometry
+          geometry,
+          centroid
         })
       }
       if (geometry.type === "Polygon") {
@@ -25,7 +25,8 @@ module.exports = {
           geoId,
           name,
           geographicLevel,
-          geometry
+          geometry,
+          centroid
         })
       }
       if (geometry.type === "Point") {
@@ -47,23 +48,25 @@ module.exports = {
     }
   },
   async get(req, res) {
-    const { long, lat } = req.query
+    const { long, lat, rad } = req.query
+    // console.log("req.query ==> ", req.query)
     try {
-      const point = {
-        type: "Point",
-        coordinates: [parseFloat(long), parseFloat(lat)],
-      }
-      const regionData = await Region.find({
-        geometry: {
-          $geoIntersects: {
-            $geometry: point
-          },
+      const regionData = await Region.find(
+        {
+          geometry: {
+            $nearSphere: {
+              $geometry: { type: "Point", coordinates: [parseFloat(long), parseFloat(lat)] },
+              $maxDistance: parseFloat(rad),
+            }
+          }
         },
-      }).exec()
-      return res.status(200).json({ success: true, msg: "Point to Region", data: regionData })
+      ).exec()
+      // console.log("demoData ==> ", regionData)
+      return res.status(200).json({ success: true, msg: "All data for given radius", data: regionData })
     } catch (error) {
-      // console.error(error)
+      // console.log("error ==> ", error)
       return res.status(500).json({ message: "Server error" })
     }
   }
+
 }
