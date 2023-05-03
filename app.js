@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser")
 const morgan = require("morgan")
 const cors = require("cors")
 const helmet = require("helmet")
+const multer = require("multer")
 
 require("dotenv").config()
 

@@ -14,6 +14,9 @@ const drivetimecontroller = require("../drivetimecontroller")
 const msasearchcontroller = require("../msasearchcontroller")
 const zipcodecontroller = require("../zipcodecontroller")
 const allmsa = require("../allmsa")
+const shapefileinfocontroller = require("../shapefileinfocontroller")
+const uploadfilecontroller = require("../uploadfilecontroller")
+const upload = require("../middlewares")
 
 router.post("/login", login.post) // UNAUTHENTICATED
 router.post("/signup", signup.post) // UNAUTHENTICATED
@@ -24,6 +27,10 @@ router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; 
 router.post("/region", regioncontroller.post)
 router.get("/region/:id", regioncontroller.get)
 
+router.use("/upload", upload.fields([{ name: "rdoc", maxCount: 1 }]))
+
+// fileupload
+router.post("/upload", uploadfilecontroller.post)
 // route for msa
 router.get("/search/msa/:geoid", msasearchcontroller.get)
 // route for zipcode
