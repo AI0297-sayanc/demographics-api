@@ -21,7 +21,7 @@ paths:
     post:
       tags:
        - User
-      summary: user login
+      summary: User login
       description: Authentication
       requestBody:
         required: true
@@ -35,7 +35,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/userRes'
+                  $ref: '#/components/schemas/userResp'
         '401':
           description: Authentication Failed!
         '404':
@@ -54,7 +54,7 @@ paths:
       parameters:
         - in: query
           name: longitude
-          description: lonitude of the given point
+          description: longitude of the given point
           schema:
             type: number
         - in: query
@@ -64,7 +64,7 @@ paths:
             type: number
         - in: query
           name: radius
-          description: scaler distance/radious in terms of meters.
+          description: scaler distance/radius in terms of meters.
           schema:
             type: number
           
@@ -77,7 +77,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Regions"
+                  $ref: "#/components/schemas/RegionResp"
 
  
 
@@ -114,7 +114,7 @@ paths:
                   schema:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Regions"
+                      $ref: "#/components/schemas/RegionResp"
 
 
  
@@ -146,13 +146,13 @@ paths:
         content:
           application/json:
               schema:
-                  $ref: "#/components/schemas/Regions"
+                  $ref: "#/components/schemas/RegionReq"
 
 
 
  
   /search/customfile:
-      get:
+      post:
         tags:
           - Searching
         summary: Returns custom shape file.
@@ -171,7 +171,7 @@ paths:
 
         responses:
           '200':
-            description: OK
+            description: File uploaded successfully.
       
              
 
@@ -186,7 +186,7 @@ paths:
       description: A balzing fast text searching utility with geographic level and additional term field with variable search mode.
       parameters:
         - in: query
-          name: geographiclevel
+          name: geographicLevel
           description: All given geographic level
           schema: 
             type: string
@@ -212,7 +212,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#/components/schemas/Regions"
+                $ref: "#/components/schemas/RegionResp"
 
  
 
@@ -234,19 +234,19 @@ paths:
           application/json:
             schema:
               type: object
-              $ref : "#/components/schemas/Region"
+              $ref : "#/components/schemas/RegionReq"
                             
 
                
 
       responses:
         '200': 
-          description: Add a Region
+          description: Region added successfully.
           content:
             application/json:
               schema:
                 type: object
-                $ref: "#/components/schemas/Region"
+                $ref: "#/components/schemas/RegionReq"
 
 
 
@@ -267,12 +267,12 @@ paths:
       
       responses:
         '200':
-          description: Get a region.
+          description: Get a region data.
           content:
             application/json:
               schema:
                 type: object
-                $ref: "#/components/schemas/Region"
+                $ref: "#/components/schemas/RegionReq"
 
     put:
       tags:
@@ -292,18 +292,18 @@ paths:
         content:
           application/json:
             schema:  
-              $ref: "#/components/schemas/Region"
+              $ref: "#/components/schemas/RegionReq"
           
       
       
       responses:
         '200':
-          description: Update region data
+          description:  Region data updated successfully.
           content:
             application/json:
               schema:
                 type: object
-                $ref: "#/components/schemas/Region"
+                $ref: "#/components/schemas/RegionReq"
 
 
     delete:
@@ -323,7 +323,7 @@ paths:
 
       responses:
         '200':
-          description: Region data deleted
+          description: Region data deleted.
          
 
 
@@ -339,12 +339,12 @@ paths:
         - Census Data
       summary: Add census data
       requestBody:
-        description: Add data
+        description: Add census data
         required: true
         content:
           application/json:
             schema:
-              $ref : "#/components/schemas/Census"
+              $ref : "#/components/schemas/CensusReq"
                             
 
 
@@ -352,47 +352,15 @@ paths:
 
       responses:
         '200': 
-          description: A JSON array of user names
+          description: Add census data
           content:
             application/json:
               schema: 
-                $ref : "#/components/schemas/Census"
+                $ref : "#/components/schemas/CensusReq"
 
 
 
 
-  /censuses:
-    get:
-      tags:
-        - Census Data
-      summary: Returns list of census data. 
-      description: List of data.
-      parameters:
-        - in: query
-          name: geoId
-          description: All given geographic level
-          schema: 
-            type: string
-
-
-        - in: query
-          name: term
-          description: Search
-          schema: 
-            type: string
-
-
-      responses:
-       '200':
-        description: A JSON array of region data
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/Census"
-
- 
 
 
 
@@ -414,11 +382,11 @@ paths:
       
       responses:
         '200':
-          description: A JSON array of region data
+          description: A census data.
           content:
             application/json:
               schema:
-                $ref : "#/components/schemas/Census"
+                $ref : "#/components/schemas/CensusReq"
 
 
     put:
@@ -439,18 +407,18 @@ paths:
         content:
           application/json:
             schema:  
-             $ref: "#/components/schemas/Census"
+             $ref: "#/components/schemas/CensusReq"
         
       
       
       responses:
         '200':
-          description: Update Census data
+          description: Census data updated successfully.
           content:
             application/json:
                schema:
                 type: object
-                $ref: "#/components/schemas/Census"
+                $ref: "#/components/schemas/CensusReq"
 
 
     delete:
@@ -470,13 +438,13 @@ paths:
 
       responses:
         '200':
-          description: Census data deleted
+          description: Census data deleted.
           
 
   /references:
     get:
       tags:
-        - References
+        - Reference
       summary: Returns list of references. 
       description: Returns a list of references.
       parameters:
@@ -488,7 +456,7 @@ paths:
       
       responses:
         '200':
-          description: A JSON array of region data
+          description: A JSON array of reference data
           content:
             application/json:
               schema:
@@ -498,30 +466,39 @@ paths:
                   properties:
                     _id:
                       type: string
+                      description: id of the reference.
                       example:  643906210ef1dbad88a04a13
                     tableId:
                       type: string
+                      description: table id of the refernce.
                       example: B01001
                     line:
                       type: string
+                      description: reference line.
                       example: 1
                     indent:
                       type: string
+                      description: indent of the reference.
                       example: 0
                     uniqueId:
                       type: string
+                      description: unique id of the reference.
                       example: B01001_001
                     label:
                       type: string
+                      description: label of the reference.
                       example: total
                     title: 
                       type: string
+                      description: title of the reference.
                       example: sex by age
                     universe:
                      type: string
+                     description: universe of the reference.
                      example: total population
                     type:
                       type: string
+                      description: type of the reference.
                       example: int
 
 
@@ -539,63 +516,80 @@ components:
       properties:
         uname:
           type: string
+          description: username of user
           example: AI
         password:
           example: AI
+          description: password of the user.
 
-    userRes:
+    userResp:
       type: object
       properties:
         accessToken:
           type: string
+          description: token
         uname:
           type: string
+          description: username
 
 
 
-    Regions:
+    RegionResp:
         type: object
         properties:
           id:
             type: string
             example: 6437cad532cc19f528367b52
+            description: id of a particular region
           geometry:
               type: object
+              description: geometry data.
               properties:
                 type:
                   type: string
                   example: "Polygon"
+                  description: polygon
                 coordinates:
                   type: array
+                  items:
+                    type: number
                   example: [[[-84.091998,30.455749],[-84.091998,30.455749]]]
+                  description: coordinates
           centroid:
               type: object
               properties:
                 type:
                   type: string
                   example: Point
+                  description: point of centroid
                 coordinates:
                   type: array
+                  items:
+                    type: number
                   example:  [-84.091998,30.455749]
 
           geoId:
               type: string
               example: 120730025072 
+              description: geoid
           name:
               type: string
               example: Block Group 2, Census Tract 25.07, Leon County, Florida
+              description: name
           geographicLevel:
               type: string
               example:  Block Group  
-          _cesus:
+              description: geographic level
+          _census:
               type: object
+              description: census
 
               
 
 
 
 
-    Region:
+    RegionReq:
           type: object
           properties:
                 geoId:
@@ -606,7 +600,7 @@ components:
                   type: string
                   example: Block Group 1, Census Tract 408.21, Riverside County, California
                   description: Name of the region
-                geographic level:
+                geographicLevel:
                   type: string
                   example: Block Group
                   description: Geographic level
@@ -648,69 +642,45 @@ components:
 
 
 
-    Census:
+    CensusReq:
       properties:
           geoId:
             type: string
             example: 060371972001
+            description: geoid
           name:
             type: string
             example: Block Group 1, Census Tract 1972, Los Angeles County, California
+            description: name
           geographicLevel:
             type: string
             example: Block Group
+            description: geographic level
           state:
             type: string
             example: 06
+            description: state
           country:
             type: string
             example: 037
+            description: country
           tract:
             type: string
             example: 197200
+            description: tract
           blockGroup:
             type: string
             example: 1
+            description: block group
           latitude:
             type: number
             example: 34.08929258664407
+            description: latitude
           longitude:
             type: number
             example:  -118.23513022842144
+            description: longitude
           censusAttributes:
             type: object
+            description: census attributes
             
-
-    Censuses:
-        type: object
-        properties:
-          geoId:
-            type: string
-            example: 060371972001
-          name:
-            type: string
-            example: Block Group 1, Census Tract 1972, Los Angeles County, California
-          geographicLevel:
-            type: string
-            example: Block Group
-          state:
-            type: string
-            example: 06
-          country:
-            type: string
-            example: 037
-          tract:
-            type: string
-            example: 197200
-          blockGroup:
-            type: string
-            example: 1
-          latitude:
-            type: number
-            example: 34.08929258664407
-          longitude:
-            type: number
-            example:  -118.23513022842144
-          censusAttributes:
-            type: object
-                

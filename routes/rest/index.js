@@ -10,6 +10,10 @@ const login = require("./auth")
 const signup = require("./auth/signup")
 const forgotpassword = require("./auth/password")
 const users = require("./users")
+const drivetimecontroller = require("../drivetimecontroller")
+const msasearchcontroller = require("../msasearchcontroller")
+const zipcodecontroller = require("../zipcodecontroller")
+const allmsa = require("../allmsa")
 
 router.post("/login", login.post) // UNAUTHENTICATED
 router.post("/signup", signup.post) // UNAUTHENTICATED
@@ -18,11 +22,19 @@ router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; 
 
 // route for region
 router.post("/region", regioncontroller.post)
-router.get("/region", regioncontroller.get)
 router.get("/region/:id", regioncontroller.get)
+
+// route for msa
+router.get("/search/msa/:geoid", msasearchcontroller.get)
+// route for zipcode
+router.get("/search/zipcode/:geoid", zipcodecontroller.get)
+// all MSA(s)
+router.get("/search/allmsa", allmsa.get)
 // searching
 router.get("/search/radius", regioncontroller.get)
 router.get("/search/point", regioncontroller.get)
+router.get("/search/drivetime", drivetimecontroller.get)
+router.get("/regions", regioncontroller.get)
 
 // route for census
 router.post("/testcensus", censuscontroller.post)
