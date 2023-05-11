@@ -7,7 +7,7 @@ module.exports = {
   async post(req, res) {
     const {
       geoId, name,
-      geographicLevel, geometry, centroid
+      geographicLevel, geometry, centroid, state, county, tract, blockGroup
     } = req.body
     try {
       let posData = {}
@@ -17,7 +17,11 @@ module.exports = {
           name,
           geographicLevel,
           geometry,
-          centroid
+          centroid,
+          state,
+          county,
+          tract,
+          blockGroup
         })
       }
       if (geometry.type === "Polygon") {
@@ -26,7 +30,11 @@ module.exports = {
           name,
           geographicLevel,
           geometry,
-          centroid
+          centroid,
+          state,
+          county,
+          tract,
+          blockGroup
         })
       }
       if (geometry.type === "Point") {
@@ -34,7 +42,11 @@ module.exports = {
           geoId,
           name,
           geographicLevel,
-          geometry
+          geometry,
+          state,
+          county,
+          tract,
+          blockGroup
         })
       }
       return res.status(200).json({
@@ -55,8 +67,8 @@ module.exports = {
         {
           geometry: {
             $nearSphere: {
-              $geometry: { type: "Point", coordinates: [parseFloat(long), parseFloat(lat)] },
-              $maxDistance: parseFloat(rad),
+              $geometry: { type: "Point", coordinates: [Number(long), Number(lat)] },
+              $maxDistance: Number(rad),
             }
           }
         },

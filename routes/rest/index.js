@@ -14,9 +14,13 @@ const drivetimecontroller = require("../drivetimecontroller")
 const msasearchcontroller = require("../msasearchcontroller")
 const zipcodecontroller = require("../zipcodecontroller")
 const allmsa = require("../allmsa")
-const shapefileinfocontroller = require("../shapefileinfocontroller")
 const uploadfilecontroller = require("../uploadfilecontroller")
 const upload = require("../middlewares")
+const pointsearchcontroller = require("../pointsearchcontroller")
+const singleregioncontroller = require("../singleregioncontroller")
+const censusdatacontroller = require("../censusdatacontroller")
+const shptojsoncontroller = require("../shptojsoncontroller")
+const shapefilereadcontroller = require("../shapefilereadcontroller")
 
 router.post("/login", login.post) // UNAUTHENTICATED
 router.post("/signup", signup.post) // UNAUTHENTICATED
@@ -25,26 +29,46 @@ router.post("/resetpassword", forgotpassword.resetPassword) // UNAUTHENTICATED; 
 
 // route for region
 router.post("/region", regioncontroller.post)
-router.get("/region/:id", regioncontroller.get)
+// router.get("/region/:id", regioncontroller.get)
 
+// middleware route for multer
+router.use("/shp2json", upload.fields([{ name: "rdoc", maxCount: 1 }]))
+
+// router.use("/shpdata", upload.fields([{ name: "rdoc", maxCount: 1 }]))
+
+// shp2json upload
+router.post("/shp2json", shptojsoncontroller.post)
+
+// Get a region.
+router.get("/region/:id", singleregioncontroller.get)
+
+// middleware route for multer
 router.use("/upload", upload.fields([{ name: "rdoc", maxCount: 1 }]))
 
 // fileupload
 router.post("/upload", uploadfilecontroller.post)
+
+// getshp file data
+router.get("/shpdata", shapefilereadcontroller.get)
+
 // route for msa
 router.get("/search/msa/:geoid", msasearchcontroller.get)
+
 // route for zipcode
 router.get("/search/zipcode/:geoid", zipcodecontroller.get)
+
 // all MSA(s)
 router.get("/search/allmsa", allmsa.get)
+
 // searching
 router.get("/search/radius", regioncontroller.get)
-router.get("/search/point", regioncontroller.get)
+router.get("/search/point", pointsearchcontroller.get)
 router.get("/search/drivetime", drivetimecontroller.get)
 router.get("/regions", regioncontroller.get)
 
 // route for census
 router.post("/testcensus", censuscontroller.post)
+router.get("/census/:geoid", censusdatacontroller.get)
 
 // router.all("*", checkJwt) // use this auth middleware for ALL subsequent routes
 

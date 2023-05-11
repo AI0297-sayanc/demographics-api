@@ -1,4 +1,4 @@
-const Census = require("../models/democensus")
+const Census = require("../models/census")
 
 /**
    *
